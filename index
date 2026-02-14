@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>G.P.O. Central Database</title>
+<style>
+
+body {
+    margin: 0;
+    font-family: 'Courier New', monospace;
+    background-color: #050505;
+    color: #00ff88;
+}
+
+header {
+    background: #000;
+    padding: 15px;
+    border-bottom: 2px solid #00ff88;
+    text-align: center;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+    background: #0a0a0a;
+}
+
+nav button {
+    background: black;
+    color: #00ff88;
+    border: 1px solid #00ff88;
+    padding: 8px 15px;
+    cursor: pointer;
+}
+
+nav button:hover {
+    background: #00ff88;
+    color: black;
+}
+
+section {
+    display: none;
+    padding: 20px;
+}
+
+.active {
+    display: block;
+}
+
+.card {
+    border: 1px solid #00ff88;
+    padding: 15px;
+    margin: 10px 0;
+}
+
+.locked {
+    color: red;
+    cursor: pointer;
+}
+
+.login-screen {
+    text-align: center;
+    margin-top: 100px;
+}
+
+input {
+    background: black;
+    border: 1px solid #00ff88;
+    color: #00ff88;
+    padding: 8px;
+}
+
+.glitch {
+    animation: glitch 1s infinite;
+}
+
+@keyframes glitch {
+    0% { text-shadow: 2px 0 red; }
+    50% { text-shadow: -2px 0 blue; }
+    100% { text-shadow: 2px 0 red; }
+}
+
+.footer {
+    text-align: center;
+    padding: 15px;
+    font-size: 12px;
+    opacity: 0.6;
+}
+
+</style>
+</head>
+<body>
+
+<div id="login" class="login-screen">
+    <h1 class="glitch">G.P.O. INTERNAL SERVER</h1>
+    <p>Enter Access Code:</p>
+    <input type="password" id="accessCode">
+    <button onclick="login()">ACCESS</button>
+    <p id="loginError" style="color:red;"></p>
+</div>
+
+<div id="database" style="display:none;">
+
+<header>G.P.O. CENTRAL DATABASE — HOKI HOKI ARCHIVE</header>
+
+<nav>
+    <button onclick="showSection('characters')">Characters</button>
+    <button onclick="showSection('timeline')">Timeline</button>
+    <button onclick="showSection('threat')">Threat Levels</button>
+    <button onclick="showSection('hospital')">Hospital Logs</button>
+    <button onclick="showSection('elepathy')">Elepathy</button>
+</nav>
+
+<section id="characters" class="active">
+<h2>Character Files</h2>
+
+<div class="card">
+<h3>Enaki Usegi</h3>
+<p>Age: 14</p>
+<p>Status: Active G.P.O. Member</p>
+<p>Survivor of initial ghoul attack. Shows high adaptability and emotional volatility.</p>
+</div>
+
+<div class="card">
+<h3>Kitana Usegi</h3>
+<p>Status: Active</p>
+<p>Protective older sister. Displays tactical precision in combat scenarios.</p>
+</div>
+
+<div class="card">
+<h3>Tonni</h3>
+<p>Status: Active</p>
+<p>Close associate of Enaki. High loyalty index.</p>
+</div>
+
+<div class="card">
+<h3>Yosebi</h3>
+<p>Status: Unstable</p>
+<p>Corruption linked to Elepathy exposure. Threat potential increasing.</p>
+</div>
+
+<div class="card">
+<h3>Gigagami</h3>
+<p>Status: Hospitalized</p>
+<p>Former elite G.P.O. operative. Critical condition.</p>
+</div>
+
+</section>
+
+<section id="timeline">
+<h2>Incident Timeline</h2>
+
+<div class="card">
+<p>Year 1 — Initial Ghoul Attack</p>
+</div>
+
+<div class="card">
+<p>Year 2 — G.P.O. Recruitment Begins</p>
+</div>
+
+<div class="card">
+<p>Season 3 — China Operation</p>
+</div>
+
+<div class="card">
+<p>Season 4 — Elepathy Corruption Event</p>
+</div>
+
+</section>
+
+<section id="threat">
+<h2>Global Threat Monitor</h2>
+
+<div class="card">
+<p>Ghoul Activity: HIGH</p>
+<p>Mutation Spread: MODERATE</p>
+<p>Elepathy Influence: CRITICAL</p>
+</div>
+
+</section>
+
+<section id="hospital">
+<h2>Hospital Records</h2>
+
+<div class="card">
+<p>Joichiro — Stabilized</p>
+</div>
+
+<div class="card">
+<p>Gigagami — Critical</p>
+</div>
+
+</section>
+
+<section id="elepathy">
+<h2 class="locked" onclick="unlockElepathy()">[CLASSIFIED FILE — CLICK TO ATTEMPT ACCESS]</h2>
+<div id="elepathyContent" style="display:none;" class="card">
+<p>Elepathy: Unknown celestial object.</p>
+<p>Origin: Post-Jupiter Explosion Event.</p>
+<p>Effect: Amplifies latent ghoul energy and mental instability.</p>
+<p>Status: Do not allow civilian exposure.</p>
+</div>
+</section>
+
+<div class="footer">
+G.P.O. Secure Network — Unauthorized Access Punishable
+</div>
+
+</div>
+
+<script>
+
+function login() {
+    const code = document.getElementById("accessCode").value;
+    if(code === "GPO-ENAKI-14") {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("database").style.display = "block";
+    } else {
+        document.getElementById("loginError").innerText = "ACCESS DENIED.";
+    }
+}
+
+function showSection(sectionId) {
+    const sections = document.querySelectorAll("section");
+    sections.forEach(sec => sec.classList.remove("active"));
+    document.getElementById(sectionId).classList.add("active");
+}
+
+function unlockElepathy() {
+    const pass = prompt("ENTER CLASSIFIED KEY:");
+    if(pass === "JUPITER-FALL") {
+        document.getElementById("elepathyContent").style.display = "block";
+    } else {
+        alert("ACCESS RESTRICTED.");
+    }
+}
+
+</script>
+
+</body>
+</html>
